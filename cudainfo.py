@@ -22,6 +22,7 @@ if __name__ == "__main__":
 Device %(cnt)d:
 \tName: %(name)s
 \tCompute Capability: %(compute_capability)s
+\tPCI Bus ID: %(pci_bus_id)s
 \tTotal Memory: %(total_mem)dMB
 \tMax Threads Per Block: %(max_thrds_per_blk)d
 \tMax Block Dim in (X, Y, Z): %(max_blk_dim)s
@@ -45,12 +46,18 @@ Device %(cnt)d:
 \tSurface Alignment: %(surf_align)d
 \tConcurrent Kernels: %(concurr_krnl)d
 \tEcc Enabled: %(ecc_en)s
-\tPCI BUS ID: %(pci_bus_id)s
-\t
+\tTCC Driver: %(tcc_drv)d
+\tMemory Clock Rate: %(mem_clk_rate)dHz
+\tGlobal Memory Bus Width: %(global_mem_bus_width)dbit
+\tL2 Cache Size: %(l2_cache_sz)dKB
+\tMax Threads Per Multiprocessor: %(max_thrds_per_mp)d
+\tAsync Engine Count: %(async_engine_cnt)d
+\tUnified Addressing: %(unified_addressing)s
         """ % {
             "cnt": i,
             "name": dev.name(),
             "compute_capability": dev.compute_capability(),
+            "pci_bus_id": dev.pci_bus_id(),
             "total_mem": dev.total_memory() >> 20,
             "max_thrds_per_blk": dev.max_threads_per_block,
             "max_blk_dim": (dev.max_block_dim_x,
@@ -83,5 +90,11 @@ Device %(cnt)d:
             "surf_align": dev.surface_alignment,
             "concurr_krnl": dev.concurrent_kernels,
             "ecc_en": bool(dev.ecc_enabled),
-            "pci_bus_id": dev.pci_bus_id,
+            "tcc_drv": dev.tcc_driver,
+            "mem_clk_rate": dev.memory_clock_rate,
+            "global_mem_bus_width": dev.global_memory_bus_width,
+            "l2_cache_sz": dev.l2_cache_size,
+            "max_thrds_per_mp": dev.max_threads_per_multiprocessor,
+            "async_engine_cnt": dev.async_engine_count,
+            "unified_addressing": bool(dev.unified_addressing),
             })
