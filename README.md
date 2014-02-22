@@ -9,7 +9,7 @@ Make sure that python3 is already installed, and `/usr/bin/env` can find the int
 It also requires:
 
 * nVidia GPU driver
-* CUDA Runtime
+* CUDA runtime (which means, if you're using bumblebee, please run with `optirun`)
 * pycuda
 
 ## Usage
