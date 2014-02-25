@@ -3,12 +3,43 @@
 import pycuda.driver
 import pycuda.autoinit
 import pycuda.compiler
+import getopt
 import sys
 
+
+def usage(prog):
+    print("Usage: %s [OPTION]..." % prog)
+    print()
+    print("      --help    ", "display this help and exit")
+    print("      --version ", "output version information and exit")
+    print()
+
+
+def version(prog):
+    print("%s 0.01" % prog)
 
 if __name__ == "__main__":
     prog = sys.argv[0]
     cnt = pycuda.driver.Device.count()
+
+    try:
+        opts, args = getopt.getopt(sys.argv[1:], "hv",
+                                   ["help",
+                                    "version"])
+    except getopt.GetoptError as wrngopt:
+        print("%s: invalid option -- \'%s\'" % (prog, wrngopt.opt),
+              file=sys.stderr)
+        exit(1)
+
+    for op, value in opts:
+        if op == "-h" or op == "--help":
+            usage(prog)
+            exit(0)
+        elif op == "-v" or op == "--version":
+            version(prog)
+            exit(0)
+        else:
+            pass
 
     if cnt == 0:
         print("%s: No devices found!" % prog, file=sys.stderr)
