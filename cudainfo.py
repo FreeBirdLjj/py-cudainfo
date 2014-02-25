@@ -9,6 +9,7 @@ import sys
 
 def usage(prog):
     print("Usage: %s [OPTION]..." % prog)
+    print("Display the CUDA information of all the GPU(s)")
     print()
     print("      --help    ", "display this help and exit")
     print("      --version ", "output version information and exit")
